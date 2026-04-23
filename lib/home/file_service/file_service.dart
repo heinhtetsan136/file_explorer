@@ -1,0 +1,82 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
+import 'package:path_provider/path_provider.dart';
+
+class FileService {
+  Future<Directory> getDirectory() {
+    return getApplicationDocumentsDirectory();
+  }
+
+  Future<Directory> createFolder(
+    String folderName, {
+    Function(String status)? status,
+  }) async {
+    final Directory root = await getDirectory();
+    final myfolder = Directory(
+      "${root.path}/$folderName",
+    );
+    final bool isExist = await myfolder.exists();
+    if (!isExist) {
+      final path = await myfolder.create(
+        recursive: true,
+      );
+      debugPrint("$path");
+      status?.call("Folder Created");
+    } else {
+      status?.call("Folder Already Exist");
+    }
+    return myfolder;
+  }
+
+  Future<File> writeFile(
+    String contents,
+    String folderName, {
+    Function(String status)? status,
+  }) async {
+    final Directory root = await getDirectory();
+    final myfolder = File(
+      "${root.path}/$folderName",
+    );
+    final bool isExist = await myfolder.exists();
+    if (!isExist) {
+      final path = await myfolder.create(
+        recursive: true,
+      );
+      debugPrint("$path");
+      status?.call("File Created");
+    } else {
+      status?.call("File Already Exist");
+    }
+    await myfolder.writeAsString(contents);
+    return myfolder;
+  }
+
+  Future<List<Directory>> getListOfFolder(
+    String path,
+  ) async {
+    final Directory root = await getDirectory();
+    final currentFolder = Directory(
+      "${root.path}/$path",
+    );
+    final list = currentFolder.list();
+    return list
+        .where((entity) => entity is Directory)
+        .cast<Directory>()
+        .toList();
+  }
+
+  Future<List<File>> getListOfFile(
+    String path,
+  ) async {
+    final Directory root = await getDirectory();
+    final currentFolder = Directory(
+      "${root.path}/$path",
+    );
+    final list = currentFolder.list();
+    return list
+        .where((entity) => entity is File)
+        .cast<File>()
+        .toList();
+  }
+}

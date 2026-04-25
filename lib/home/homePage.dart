@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_storage_mini_project/home/file_service/creat_new_file_dialog.dart';
 import 'package:file_storage_mini_project/home/file_service/create_new_folder_dialog.dart';
+import 'package:file_storage_mini_project/home/file_service/delete_dialog.dart';
 import 'package:file_storage_mini_project/home/file_service/file_service.dart';
 import 'package:file_storage_mini_project/note_pad_screen.dart';
 import 'package:flutter/material.dart';
@@ -151,6 +152,69 @@ class _HomepageState extends State<Homepage> {
                     "$_currentLocation/$foldername";
 
                 return ListTile(
+                  trailing: PopupMenuButton(
+                    onSelected: (str) async {
+                      if (str == "delete") {
+                        final bool? isDelete =
+                            await showDialog(
+                              context: context,
+                              builder: (_) {
+                                return DeleteDialog(
+                                  title:
+                                      foldername,
+                                );
+                              },
+                            );
+                        if (isDelete == true) {
+                          try {
+                            await _fileService
+                                .deleteFolder(
+                                  "$_currentLocation/$foldername",
+                                );
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(
+                                context,
+                              ).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    "Sucessfully deleted",
+                                  ),
+                                ),
+                              );
+
+                              _loadFileandFolder(
+                                _currentLocation,
+                              );
+                            }
+                          } catch (e) {
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(
+                                context,
+                              ).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    "Failed to delete: $e",
+                                  ),
+                                ),
+                              );
+                            }
+                          }
+                        }
+                      }
+                    },
+                    itemBuilder: (_) {
+                      return [
+                        PopupMenuItem(
+                          child: Text("Rename"),
+                          value: "rename",
+                        ),
+                        PopupMenuItem(
+                          child: Text("Delete"),
+                          value: "delete",
+                        ),
+                      ];
+                    },
+                  ),
                   onTap: () {
                     print(directory.path);
                     _currentLocation =

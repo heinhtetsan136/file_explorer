@@ -86,4 +86,20 @@ class FileService {
     final String text = await file.readAsString();
     return text;
   }
+
+  Future<void> deleteFile(String path) async {
+    final Directory root = await getDirectory();
+    final currentFile = File(
+      "${root.path}/$path",
+    );
+    currentFile.delete(recursive: true);
+  }
+
+  Future<void> deleteFolder(String path) async {
+    final Directory root = await getDirectory();
+    final currentFolder = Directory(
+      "${root.path}/$path",
+    );
+    currentFolder.delete(recursive: true);
+  }
 }

@@ -10,12 +10,23 @@ class AppTheme {
       listTileTheme: ListTileThemeData(
         iconColor: Colors.indigoAccent,
         titleTextStyle: TextStyle(
-          color: Colors.indigo,
+          inherit: false,
+          color: Colors.indigoAccent,
         ),
         subtitleTextStyle: TextStyle(
+          inherit: false,
           color: Colors.indigoAccent,
         ),
       ),
+      // listTileTheme: ListTileThemeData(
+      //   iconColor: Colors.indigoAccent,
+      //   titleTextStyle: TextStyle(
+      //     color: Colors.indigo,
+      //   ),
+      //   subtitleTextStyle: TextStyle(
+      //     color: Colors.indigoAccent,
+      //   ),
+      // ),
       iconButtonTheme: IconButtonThemeData(
         style: IconButton.styleFrom(
           foregroundColor: Colors.white,

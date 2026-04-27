@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:file_storage_mini_project/home/appTheme/theme_const_for_storage.dart';
 import 'package:file_storage_mini_project/home/file_service/creat_new_or_rename_file_dialog.dart';
 import 'package:file_storage_mini_project/home/file_service/create_new_or_rename_folder_dialog.dart';
 import 'package:file_storage_mini_project/home/file_service/delete_dialog.dart';
@@ -8,7 +9,12 @@ import 'package:file_storage_mini_project/note_pad_screen.dart';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
-  Homepage({super.key});
+  Homepage({
+    super.key,
+    required this.themeChange,
+  });
+
+  final Function(String onChanged) themeChange;
 
   @override
   State<Homepage> createState() =>
@@ -199,6 +205,42 @@ class _HomepageState extends State<Homepage> {
               _createNewFile();
             },
             icon: Icon(Icons.note_add_outlined),
+          ),
+          PopupMenuButton(
+            onSelected: (str) {
+              widget.themeChange(str);
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    "Successfully Changed to $str theme",
+                  ),
+                ),
+              );
+            },
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  value:
+                      themeMode[AppThemeMode
+                          .light],
+                  child: Text("Light"),
+                ),
+                PopupMenuItem(
+                  value:
+                      themeMode[AppThemeMode
+                          .dark],
+                  child: Text("Dark"),
+                ),
+                PopupMenuItem(
+                  value:
+                      themeMode[AppThemeMode
+                          .system],
+                  child: Text("System"),
+                ),
+              ];
+            },
           ),
         ],
       ),

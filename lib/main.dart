@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     final String? theme = widget.sharedPreferences
         .getString(keyForGetTheme);
-    print("theme $theme");
+
     return MaterialApp(
       scrollBehavior: ScrollBehavior().copyWith(
         dragDevices: {

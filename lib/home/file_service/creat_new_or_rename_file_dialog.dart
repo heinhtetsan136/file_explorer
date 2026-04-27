@@ -93,7 +93,6 @@ class _CreateNewOrRenameFileDialogState
         },
       );
     } catch (e) {
-      print("error is $e");
       if (context.mounted) {
         ScaffoldMessenger.of(
           context,
@@ -123,7 +122,6 @@ class _CreateNewOrRenameFileDialogState
         "${widget.currentLocation}${_controller.text}",
       );
     } catch (e) {
-      print("error is $e");
       if (context.mounted) {
         ScaffoldMessenger.of(
           context,

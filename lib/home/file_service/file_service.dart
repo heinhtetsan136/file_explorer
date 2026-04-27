@@ -37,7 +37,7 @@ class FileService {
       final path = await myfolder.create(
         recursive: true,
       );
-      debugPrint("$path");
+
       status?.call("Folder Created");
     } else {
       status?.call("Folder Already Exist");
@@ -59,7 +59,7 @@ class FileService {
       final path = await myfolder.create(
         recursive: true,
       );
-      debugPrint("$path");
+
       status?.call("File Created");
     } else {
       status?.call("File Already Exist");
@@ -137,7 +137,6 @@ class FileService {
     final directory = await currentFile.rename(
       newFileName,
     );
-    print("new directory=$directory");
   }
 
   Future<void> renameFolder(
@@ -158,6 +157,5 @@ class FileService {
     final directory = await currentFolder.rename(
       newFolderPath,
     );
-    print("new directory=$directory");
   }
 }

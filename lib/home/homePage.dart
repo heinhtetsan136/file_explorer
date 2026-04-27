@@ -108,7 +108,7 @@ class _HomepageState extends State<Homepage> {
         .getListOfFolder(path);
     _listofFile = await _fileService
         .getListOfFile(path);
-    print("lenght ${_listofFile.length}");
+    ("lenght ${_listofFile.length}");
     setState(() {});
   }
 
@@ -164,7 +164,6 @@ class _HomepageState extends State<Homepage> {
   }
 
   void _createNewFile() async {
-    print(_currentLocation);
     bool isOK = await showDialog(
       context: context,
       builder: (context) {
@@ -260,18 +259,13 @@ class _HomepageState extends State<Homepage> {
                       _currentLocation == ""
                       ? null
                       : () {
-                          print(
-                            "first $_currentLocation",
-                          );
                           final List<String> dir =
                               _currentLocation
                                   .split("/");
                           dir.removeLast();
                           _currentLocation = dir
                               .join("/");
-                          print(
-                            "second $_currentLocation",
-                          );
+
                           _loadFileandFolder(
                             _currentLocation,
                           );
@@ -326,7 +320,6 @@ class _HomepageState extends State<Homepage> {
                     },
                   ),
                   onTap: () {
-                    print(directory.path);
                     _currentLocation =
                         folderlocation;
                     _loadFileandFolder(

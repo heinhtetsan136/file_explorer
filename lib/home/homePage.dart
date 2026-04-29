@@ -181,6 +181,10 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     final ScrollController _scrollController =
         ScrollController();
+    final List<String> dir =
+        _currentLocation.split("/")
+          ..removeWhere((e) => e.isEmpty);
+    int _i = 0;
     return Scaffold(
       appBar: AppBar(
         title: Text("File Explorer"),
@@ -274,11 +278,40 @@ class _HomepageState extends State<Homepage> {
                     Icons.arrow_back_ios_new,
                   ),
                 ),
-                title: Text(
-                  _currentLocation.isEmpty
-                      ? "/"
-                      : _currentLocation,
-                ),
+                title: _currentLocation.isEmpty
+                    ? Text("/")
+                    : Row(
+                        children: dir.map((e) {
+                          int _i = dir.indexOf(e);
+
+                          return InkWell(
+                            onTap: () {
+                              print(
+                                "list is e $dir",
+                              );
+                              print(_i);
+                              dir.removeRange(
+                                _i + 1,
+                                dir.length,
+                              );
+                              print(
+                                "list is e $dir",
+                              );
+
+                              _currentLocation =
+                                  dir.join("/");
+
+                              setState(() {
+                                _loadFileandFolder(
+                                  _currentLocation,
+                                );
+                              });
+                            },
+
+                            child: Text("/ $e"),
+                          );
+                        }).toList(),
+                      ),
               ),
             ),
             SliverList.builder(
@@ -389,8 +422,8 @@ class _HomepageState extends State<Homepage> {
                           fileName: fileName,
                           context: context,
                         );
-                      }
-                      if (str == "rename") {
+                      } else if (str ==
+                          "rename") {
                         _renameFile(fileName);
                       } else {
                         _exportfile(

@@ -286,16 +286,9 @@ class _HomepageState extends State<Homepage> {
 
                           return InkWell(
                             onTap: () {
-                              print(
-                                "list is e $dir",
-                              );
-                              print(_i);
                               dir.removeRange(
                                 _i + 1,
                                 dir.length,
-                              );
-                              print(
-                                "list is e $dir",
                               );
 
                               _currentLocation =
@@ -387,9 +380,6 @@ class _HomepageState extends State<Homepage> {
                     .last;
                 return ListTile(
                   onTap: () {
-                    print(
-                      "locattion $_currentLocation",
-                    );
                     Navigator.push(
                       context,
                       MaterialPageRoute(

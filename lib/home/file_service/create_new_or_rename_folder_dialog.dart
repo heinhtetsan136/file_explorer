@@ -42,7 +42,6 @@ class _CreateorRenameNewFolderDialogState
 
   @override
   Widget build(BuildContext context) {
-    print("widgetoldpath ${widget.oldName}");
     return AlertDialog(
       title: Text("Create New Folder"),
       content: Column(
@@ -79,7 +78,6 @@ class _CreateorRenameNewFolderDialogState
   }
 
   void _createNew() async {
-    print("create new");
     try {
       await _fileService.createFolder(
         status: (status) {

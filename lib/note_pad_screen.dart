@@ -54,9 +54,6 @@ class _NotePadScreenState
           IconButton(
             onPressed: _hasEdit
                 ? () async {
-                    print(
-                      "this is location ${widget.currentfileLocation}",
-                    );
                     try {
                       await fileService.writeFile(
                         _textEditingController
